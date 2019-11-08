@@ -5,11 +5,15 @@
     <form #form="ngForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input id="name" name="name" class="form-control" placeholder="Name" />
+            <!-- ngModel tells angular to track the name input changes -->
+            <!-- ngModel can only track an input with a name attribute -->
+            <!-- To achieve two way data binding between our form and our component we can use the banana in a box syntax [(ngModel)] -->
+            <!-- We then can bind it to a property on our component -->
+            <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="userSettings.name" /> 
         </div>
 
         <div class="form-check">
-            <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1">
+            <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="userSettings.emailOffers">
             <label class="form-check-label" for="emailOffers">
                 Email Special Offers
             </label>
@@ -18,19 +22,19 @@
         <p>User Interface Style</p>
         <div class="form-group">
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="lightInterface" name="interfaceStyle" value="light" checked>
+                <input class="form-check-input" type="radio" id="lightInterface" name="interfaceStyle" value="light" [(ngModel)]="userSettings.interfaceStyle" checked>
                 <label class="form-check-label" for="lightInterface">
                     Light
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="mediumInterface" name="interfaceStyle" value="medium">
+                <input class="form-check-input" type="radio" id="mediumInterface" name="interfaceStyle" value="medium" [(ngModel)]="userSettings.interfaceStyle" ngModel>
                 <label class="form-check-label" for="mediumInterface">
                     Medium
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="darkInterface" name="interfaceStyle" value="dark">
+                <input class="form-check-input" type="radio" id="darkInterface" name="interfaceStyle" value="dark" [(ngModel)]="userSettings.interfaceStyle" ngModel>
                 <label class="form-check-label" for="darkInterface">
                     Dark
                 </label>
@@ -39,7 +43,7 @@
 
         <div class="form-group">
             <label for="subscriptionType">Subscription Type</label>
-            <select class="form-control" id="subscriptionType">
+            <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
                 <option>Monthly</option>
                 <option>Annual</option>
                 <option>Lifetime</option>
@@ -48,9 +52,12 @@
 
         <div class="form-group">
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" class="form-control" rows="3"></textarea>
+            <textarea id="notes" name="notes" class="form-control" rows="3" [(ngModel)]="userSettings.notes"></textarea>
         </div>
         
         <button class="btn btn-primary">Send</button>
     </form>
 </div>
+
+<!-- <p>{{ form.value | json }}</p> -->
+<p>{{ userSettings | json }}</p>
