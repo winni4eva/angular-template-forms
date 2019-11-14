@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSettings } from '../data/user-settings';
 import { NgForm, NgModel } from '@angular/forms';
+import { DataService } from '../data/data.service';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -11,13 +13,14 @@ export class UserSettingsFormComponent implements OnInit {
 
   // Because a user can cancel a form or go back during form filling, we need a way to protect data
   // One way is by copying the data to another property
-
+  postError = false;
+  postErrorMessage = '';
   originalUserSettings: UserSettings = {
-    name: '',
-    emailOffers: true,
-    interfaceStyle: '',
-    subscriptionType: '',
-    notes: ''
+    name: undefined,
+    emailOffers: undefined,
+    interfaceStyle: undefined,
+    subscriptionType: undefined,
+    notes: undefined
   };
 
   // When a user changes a from we do not want to change originalUserSettings, we just change the copy userSettings
@@ -27,17 +30,34 @@ export class UserSettingsFormComponent implements OnInit {
   // THis protects our data just in case a user exits the form without submitting it
   userSettings: UserSettings = {...this.originalUserSettings};
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
     console.log('in on submit', form.valid);
+    if(form.valid) {
+      this.dataService.postUserSettingsForm(this.userSettings)
+        .subscribe(
+          response => console.log('success', response),
+          error => this.onHttpError(error)
+        );
+    } else {
+      this.postError = true;
+      this.postErrorMessage = 'Please fix the above errors';
+    }
   }
 
   onBlur(field: NgModel) {
     console.log('in on blur', field.valid);
+  }
+
+  onHttpError(errorResponse: any) {
+    console.log('error', errorResponse);
+    this.postError = true;
+    this.postErrorMessage = errorResponse.error.errorMessage;
+    
   }
 
 }
