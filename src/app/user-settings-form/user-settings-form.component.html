@@ -2,17 +2,36 @@
     <h2>User Settings</h2>
     
     <!-- We are assigning angular ngform object to our template variable form -->
-    <form #form="ngForm">
+    <!-- We can enable html5 validation by using the ngNativeValidate directive on our form  -->
+    <!-- Angular turns the native validation off because of differences in browser implementation -->
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
         <div class="form-group">
             <label for="name">Name</label>
             <!-- ngModel tells angular to track the name input changes -->
             <!-- ngModel can only track an input with a name attribute -->
             <!-- To achieve two way data binding between our form and our component we can use the banana in a box syntax [(ngModel)] -->
             <!-- We then can bind it to a property on our component -->
-            <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="userSettings.name" /> 
+            <!-- We can inspect a field's validation propeties eg dirty, pristine, touched etc by adding a template variable with a ref to ngModel  -->
+            <!-- #propertyTest="ngModel" -->
+            <input 
+                id="name" 
+                name="name" 
+                class="form-control" 
+                placeholder="Name" 
+                [(ngModel)]="userSettings.name" 
+                required 
+                #nameField="ngModel"
+                (blur)="onBlur(nameField)"
+                [class.field-error]="form.submitted && nameField.invalid">
+            <!-- <div [hidden]="nameField.valid || nameField.untouched" class="alert alert-danger">
+                Enter name
+            </div>  -->
+            <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
+                Enter name
+            </div>
         </div>
 
-        <div class="form-check">
+        <div class="form-check"> 
             <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="userSettings.emailOffers">
             <label class="form-check-label" for="emailOffers">
                 Email Special Offers

@@ -1,0 +1,8 @@
+/* To enable input validation for our forms before submit */
+/* .ng-invalid:not(form).ng-touched {
+    border: 1px solid red;
+} */
+
+.field-error {
+    border: 1px solid red;
+}
