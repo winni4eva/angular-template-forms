@@ -63,9 +63,8 @@
         <div class="form-group">
             <label for="subscriptionType">Subscription Type</label>
             <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
-                <option>Monthly</option>
-                <option>Annual</option>
-                <option>Lifetime</option>
+                <!-- Our sunscriptionTypes is an observable, to wait for the data we need to use the async pipe -->
+                <option *ngFor="let type of sunscriptionTypes | async">{{type}}</option>
             </select>
         </div>
 

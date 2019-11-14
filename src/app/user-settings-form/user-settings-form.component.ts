@@ -3,6 +3,7 @@ import { UserSettings } from '../data/user-settings';
 import { NgForm, NgModel } from '@angular/forms';
 import { DataService } from '../data/data.service';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -15,6 +16,7 @@ export class UserSettingsFormComponent implements OnInit {
   // One way is by copying the data to another property
   postError = false;
   postErrorMessage = '';
+  sunscriptionTypes: Observable<string[]>;
   originalUserSettings: UserSettings = {
     name: undefined,
     emailOffers: undefined,
@@ -33,6 +35,7 @@ export class UserSettingsFormComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.sunscriptionTypes = this.dataService.getSubscriptionTypes();
   }
 
   onSubmit(form: NgForm) {
@@ -56,8 +59,7 @@ export class UserSettingsFormComponent implements OnInit {
   onHttpError(errorResponse: any) {
     console.log('error', errorResponse);
     this.postError = true;
-    this.postErrorMessage = errorResponse.error.errorMessage;
-    
+    this.postErrorMessage = errorResponse.error.errorMessage; 
   }
 
 }
