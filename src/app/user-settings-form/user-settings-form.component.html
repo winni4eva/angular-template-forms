@@ -37,6 +37,21 @@
             {{singleModel}}
         </button>
 
+        <!-- Make sure you have your bootstrap style set in angular.json styles property  -->
+        <!-- Remember to restart the server if the styles are not updated -->
+        <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="text"
+                placeholder="Start Date"
+                class="form-control"
+                [(ngModel)]="startDate"
+                name="startDate"
+                id="startDate"
+                bsDatepicker>
+        </div>
+
+        <p>Start Date: {{startDate}}</p>
+
         <div class="form-check"> 
             <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="userSettings.emailOffers">
             <label class="form-check-label" for="emailOffers">

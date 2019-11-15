@@ -25,6 +25,7 @@ export class UserSettingsFormComponent implements OnInit {
     notes: undefined
   };
   singleModel = 'On';
+  startDate: Date;
 
   // When a user changes a from we do not want to change originalUserSettings, we just change the copy userSettings
   // we copied using the spread opearator because we had a flat object
