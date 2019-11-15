@@ -27,6 +27,8 @@ export class UserSettingsFormComponent implements OnInit {
   singleModel = 'On';
   startDate: Date;
   startTime: Date = new Date();
+  userRating = 0;
+  maxRating = 10;
 
   // When a user changes a from we do not want to change originalUserSettings, we just change the copy userSettings
   // we copied using the spread opearator because we had a flat object

@@ -56,6 +56,13 @@
             <p>Start Time: {{startTime}}</p>
         </div>
 
+        <div class="form-group">
+            User Rating
+            <rating [(ngModel)]="userRating" [max]="maxRating" [readonly]="isReadonly" name="userRating" id="userRating"
+                [titles]="['one','two','three']"></rating>
+        </div>
+        <p>User Rating: {{userRating}}</p>
+
         <div class="form-check"> 
             <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="userSettings.emailOffers">
             <label class="form-check-label" for="emailOffers">
