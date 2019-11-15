@@ -50,7 +50,11 @@
                 bsDatepicker>
         </div>
 
-        <p>Start Date: {{startDate}}</p>
+        <div class="form-group">
+            <label for="startTime"></label>
+            <timepicker [(ngModel)]="startTime" name="startTime"></timepicker>
+            <p>Start Time: {{startTime}}</p>
+        </div>
 
         <div class="form-check"> 
             <input class="form-check-input" id="emailOffers" name="emailOffers" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="userSettings.emailOffers">
