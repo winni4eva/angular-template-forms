@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Customer } from './customer';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-customer',
@@ -30,9 +29,15 @@ export class CustomerComponent implements OnInit {
     // });
 
     this.customerForm = this.fb.group({
-      firstName: '',
-      lastName: '', //{value: 'n/a', disabled: true},
-      email: '',
+      firstName: ['', [
+        Validators.required, Validators.minLength(3)
+      ]],
+      lastName: ['', [
+        Validators.required, Validators.maxLength(50)
+      ]], //{value: 'n/a', disabled: true},
+      email: ['', [
+        Validators.required, Validators.email
+      ]],
       sendCatalog: true
     });
   }
