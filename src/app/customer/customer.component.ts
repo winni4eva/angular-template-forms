@@ -28,6 +28,8 @@ export class CustomerComponent implements OnInit {
     //   sendCatalog: new FormControl(true)
     // });
 
+    // If a user select the phone notification option the phone formControl needs to be required
+    // If the user selects en email notification then the phone field is not required
     this.customerForm = this.fb.group({
       firstName: ['', [
         Validators.required, Validators.minLength(3)
@@ -38,6 +40,8 @@ export class CustomerComponent implements OnInit {
       email: ['', [
         Validators.required, Validators.email
       ]],
+      phone: '',
+      notification: 'email',
       sendCatalog: true
     });
   }
@@ -56,5 +60,15 @@ export class CustomerComponent implements OnInit {
       email: 'adams4lyf@gmail.com',
       sendCatalog: false
     })
+  }
+
+  setNotificationVia(notifyVia: string): void {
+    const phoneControl = this.customerForm.get('phone');
+    if(notifyVia === 'text') {
+      phoneControl.setValidators(Validators.required);
+    } else {
+      phoneControl.clearValidators()
+    }
+    phoneControl.updateValueAndValidity();
   }
 }
